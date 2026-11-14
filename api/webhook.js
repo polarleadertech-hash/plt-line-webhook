@@ -1,13 +1,4 @@
-程式碼更新好了！但**我沒辦法直接 push 到 GitHub**（需要你的 GitHub 帳號授權）。
 
-**請你更新 GitHub 上的 `api/webhook.js`**：
-
-1. 開 `https://github.com/polarleadertech-hash/plt-line-webhook`
-2. 點 `api` 資料夾 → `webhook.js`
-3. 點右上角「**✏️**」（edit）
-4. 把內容全刪，貼下面的 code：
-
-```javascript
 export default async function handler(req, res) {
   const LINE_CHANNEL_ID = "2012538750";
   const LINE_CHANNEL_SECRET="***";
