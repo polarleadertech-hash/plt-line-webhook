@@ -1,8 +1,7 @@
-
 export default async function handler(req, res) {
   const LINE_CHANNEL_ID = "2012538750";
   const LINE_CHANNEL_SECRET="***";
-  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz7IUlNUurymId31SmKg8cIEYNqHYaNk9J454MW2VvrHBGojApC87pqAbKBTkU44hJlFA/exec";
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx1yk69CQmOBVDL5Q0RjSyi3kMUN5lukfFZT02VI7V9n_FmQ2XJkmfgqkltfypUXSmsGw/exec";
 
   async function getLineToken() {
     const res = await fetch("https://api.line.me/oauth/v2/verify", {
@@ -31,7 +30,8 @@ export default async function handler(req, res) {
   }
 
   async function queryOrder(name) {
-    const url = GOOGLE_SCRIPT_URL + "?action=query&name=" + encodeURIComponent(name);
+    const queryValue = "query:" + name;
+    const url = GOOGLE_SCRIPT_URL + "?query=" + encodeURIComponent(queryValue);
     const res = await fetch(url);
     const data = await res.json();
     return data;
@@ -50,11 +50,10 @@ export default async function handler(req, res) {
         const token = await getLineToken();
         
         const msg = "👋 歡迎加入極引科技 LINE 官方帳號！\n\n" +
-"📦 有訂單想查詢？\n" +
+          "📦 有訂單想查詢？\n" +
           "請發送「訂單查詢 + 姓名」\n" +
           "例：訂單查詢 小王\n\n" +
           "如有其他問題也歡迎直接訊息我們！";
-        
         await sendLineMessage(token, userId, msg);
         res.status(200).json({ ok: true });
         return;
